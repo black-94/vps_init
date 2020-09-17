@@ -88,7 +88,7 @@ def restartV2ray():
     pids = procExist("v2ray")
     for pid in pids:
         subprocess.getstatusoutput("kill -9 " + pid)
-    subprocess.getstatusoutput("v2ray")
+    subprocess.getstatusoutput("/snap/v2ray/current/bin/v2ray")
     time.sleep(1000)
     pids = procExist("v2ray")
     if len(pids) < 1:
