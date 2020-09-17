@@ -116,6 +116,7 @@ def log(pre, msg):
         return
     file = open("/tmp/loop.log", 'w', encoding="utf-8")
     file.write(pre + " : " + msg)
+    print(pre + " : " + msg)
     file.close()
 
 
