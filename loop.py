@@ -36,7 +36,7 @@ def poll():
     content = decrypt(content)
     data = fromJson(content)
     log("poll,content", content)
-    if (data['code'] != 200 or data['message'] == 'repeat'):
+    if (data['code'] != '200' or data['message'] == 'repeat'):
         return None
     return data['config']
 
