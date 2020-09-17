@@ -73,7 +73,7 @@ def update(data):
 
 
 def write(config):
-    file = open("/root/v2ray/v2ray/config.json", 'w', encoding="utf-8")
+    file = open("/root/v2ray/config.cfg", 'w', encoding="utf-8")
     file.write(config)
     file.close()
     return True
@@ -86,7 +86,7 @@ def restartV2ray():
     pids = procExist("v2ray")
     for pid in pids:
         subprocess.getstatusoutput("kill -9 " + pid)
-    subprocess.getstatusoutput("/root/v2ray/v2ray")
+    subprocess.getstatusoutput("/root/v2ray/v2ray -config config.cfg")
     time.sleep(1)
     pids = procExist("v2ray")
     if len(pids) < 1:
