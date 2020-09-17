@@ -78,9 +78,9 @@ def write(config):
     if not exist:
         log("poll,write", "bin path not exist")
         return False
-    fd = os.open(path_bin + "config.json", os.O_RDWR | os.O_CREAT)
-    os.write(fd, config.encode())
-    os.close(fd)
+    file = open(path_bin + "config.json", 'w', encoding="utf-8")
+    file.write(config.encode())
+    file.close()
     return True
 
 
@@ -114,9 +114,9 @@ def log(pre, msg):
     exist = os.path.exists("/tmp")
     if not exist:
         return
-    fd = os.open("/tmp/loop.log", os.O_RDWR | os.O_CREAT)
-    os.write(fd, (pre + " : " + msg).encode())
-    os.close(fd)
+    file = open("/tmp/loop.log", 'w', encoding="utf-8")
+    file.write(pre + " : " + msg)
+    file.close()
 
 
 def main():
