@@ -15,8 +15,6 @@ key = os.getenv("V2RAY_KEY")
 iv = os.getenv("V2RAY_IV")
 password = os.getenv("SS_PASSWD")
 
-path_bin = "/snap/v2ray/current/bin/"
-
 configCache = ""
 
 # Padding
@@ -37,8 +35,8 @@ def poll():
     content = decrypt(content)
     data = fromJson(content)
     log("poll,content", content)
-    # if (data['code'] != '200' or data['message'] == 'repeat'):
-    #     return None
+    if (data['message'] == 'repeat'):
+        return None
     return data['config']
 
 
@@ -75,7 +73,7 @@ def update(data):
 
 
 def write(config):
-    file = open("config.json", 'w', encoding="utf-8")
+    file = open("/root/v2ray/v2ray/config.json", 'w', encoding="utf-8")
     file.write(config)
     file.close()
     return True
@@ -83,11 +81,12 @@ def write(config):
 
 def restartV2ray():
     if role == 'end':
-        subprocess.getstatusoutput("nohup ss-server -s 0.0.0.0 -p 9091 -k '" + password + "' -m aes-256-gcm -t 300 --fast-open &")
+        subprocess.getstatusoutput(
+            "nohup ss-server -s 0.0.0.0 -p 9091 -k '" + password + "' -m aes-256-gcm -t 300 --fast-open &")
     pids = procExist("v2ray")
     for pid in pids:
         subprocess.getstatusoutput("kill -9 " + pid)
-    subprocess.getstatusoutput("/snap/v2ray/current/bin/v2ray -config config.json")
+    subprocess.getstatusoutput("/root/v2ray/v2ray")
     time.sleep(1)
     pids = procExist("v2ray")
     if len(pids) < 1:
