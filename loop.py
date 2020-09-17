@@ -36,8 +36,8 @@ def poll():
     content = decrypt(content)
     data = fromJson(content)
     log("poll,content", content)
-    if (data['code'] != '200' or data['message'] == 'repeat'):
-        return None
+    # if (data['code'] != '200' or data['message'] == 'repeat'):
+    #     return None
     return data['config']
 
 
@@ -111,7 +111,12 @@ def procExist(command):
 
 
 def log(pre, msg):
-    print(str(pre) + "：" + msg)
+    exist = os.path.exists("/tmp")
+    if not exist:
+        return
+    file = os.open("/tmp/loop.log", 'w')
+    file.write(pre + " : " + msg)
+    file.close()
 
 
 def main():
