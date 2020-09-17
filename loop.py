@@ -78,7 +78,7 @@ def write(config):
     if not exist:
         log("poll,write", "bin path not exist")
         return False
-    file = os.open(path_bin + "config.json", 'w', encoding="utf-8")
+    file = os.open(path_bin + "config.json", 'w')
     file.write(config)
     file.close()
     return True
