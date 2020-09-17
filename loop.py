@@ -74,11 +74,7 @@ def update(data):
 
 
 def write(config):
-    exist = os.path.exists(path_bin)
-    if not exist:
-        log("poll,write", "bin path not exist")
-        return False
-    file = open(path_bin + "config.json", 'w', encoding="utf-8")
+    file = open("config.json", 'w', encoding="utf-8")
     file.write(config.encode())
     file.close()
     return True
@@ -88,7 +84,7 @@ def restartV2ray():
     pids = procExist("v2ray")
     for pid in pids:
         subprocess.getstatusoutput("kill -9 " + pid)
-    subprocess.getstatusoutput("/snap/v2ray/current/bin/v2ray")
+    subprocess.getstatusoutput("/snap/v2ray/current/bin/v2ray -config config.json")
     time.sleep(1000)
     pids = procExist("v2ray")
     if len(pids) < 1:
