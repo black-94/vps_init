@@ -85,7 +85,7 @@ def restartV2ray():
     pids = procExist("v2ray")
     for pid in pids:
         subprocess.getstatusoutput("kill -9 " + pid)
-    os.system("nohup /root/v2ray/v2ray -config config.cfg &")
+    os.system("nohup /root/v2ray/v2ray -config /root/v2ray/config.cfg &")
     time.sleep(1)
     pids = procExist("v2ray")
     if len(pids) < 1:
