@@ -75,7 +75,7 @@ def update(data):
 
 def write(config):
     file = open("config.json", 'w', encoding="utf-8")
-    file.write(config.encode())
+    file.write(config)
     file.close()
     return True
 
