@@ -13,6 +13,7 @@ url = os.getenv("V2RAY_URL")
 
 key = os.getenv("V2RAY_KEY")
 iv = os.getenv("V2RAY_IV")
+password = os.getenv("SS_PASSWD")
 
 path_bin = "/snap/v2ray/current/bin/"
 
@@ -81,6 +82,8 @@ def write(config):
 
 
 def restartV2ray():
+    if role == 'end':
+        subprocess.getstatusoutput("ss-server -s 0.0.0.0 -p 9091 -k '" + password + "' -m aes-256-cfb -t 300 --fast-open")
     pids = procExist("v2ray")
     for pid in pids:
         subprocess.getstatusoutput("kill -9 " + pid)
