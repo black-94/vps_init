@@ -85,7 +85,7 @@ def restartV2ray():
     for pid in pids:
         subprocess.getstatusoutput("kill -9 " + pid)
     subprocess.getstatusoutput("/snap/v2ray/current/bin/v2ray -config config.json")
-    time.sleep(1000)
+    time.sleep(1)
     pids = procExist("v2ray")
     if len(pids) < 1:
         log("v2ray restart", "not success")
@@ -151,4 +151,4 @@ if __name__ == '__main__':
         exit()
     while True:
         main()
-        time.sleep(1000)
+        time.sleep(1)
