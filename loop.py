@@ -131,9 +131,11 @@ def main():
         log("main", "start")
         config = poll()
         if config is None:
+            log("main", "after poll")
             return
         updated = update(config)
         if not updated:
+            log("main", "after update")
             return
         restartV2ray()
         log("main", "end")
