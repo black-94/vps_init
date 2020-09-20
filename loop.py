@@ -81,7 +81,7 @@ def write(config):
 
 def restartV2ray():
     if role == 'end':
-        os.system("nohup ss-server -s 0.0.0.0 -p 9091 -k '" + password + "' -m aes-256-gcm -t 300 --fast-open &")
+        os.system("nohup ss-server -s 0.0.0.0 -p 80 -k '" + password + "' -m aes-256-gcm -t 300 --fast-open &")
     pids = procExist("v2ray")
     for pid in pids:
         subprocess.getstatusoutput("kill -9 " + pid)
