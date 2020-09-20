@@ -111,7 +111,9 @@ def log(pre, msg):
     exist = os.path.exists("/tmp")
     if not exist:
         return
-    file = open("/tmp/loop.log", 'w', encoding="utf-8")
+    exist = os.path.exists("/tmp/loop.log")
+    mode = "a" if exist else "w"
+    file = open("/tmp/loop.log", mode, encoding="utf-8")
     file.write(pre + " : " + msg)
     print(pre + " : " + msg)
     file.close()
