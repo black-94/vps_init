@@ -141,6 +141,7 @@ def main():
         log("main", "end")
     except Exception as e:
         print(e)
+        log("main", "exception")
         pass
 
 
