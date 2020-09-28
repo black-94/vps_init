@@ -7,6 +7,9 @@ import time
 import requests
 from Crypto.Cipher import AES
 
+root_ip = os.getenv("ROOT_IP")
+root_passwd = os.getenv("ROOT_PASSWD")
+
 role = os.getenv("V2RAY_ROLE")
 
 url = os.getenv("V2RAY_URL")
@@ -82,6 +85,7 @@ def write(config):
 def restartV2ray():
     if role == 'end':
         os.system("nohup ss-server -s 0.0.0.0 -p 80 -k '" + password + "' -m aes-256-gcm -t 300 --fast-open &")
+    v2rayCheck()
     pids = procExist("v2ray")
     for pid in pids:
         subprocess.getstatusoutput("kill -9 " + pid)
@@ -105,6 +109,22 @@ def procExist(command):
             pid = line.split()[1]
             pids.append(pid)
     return pids
+
+
+def v2rayCheck():
+    if not os.path.exists("/root/v2ray"):
+        os.mkdir("/root/v2ray")
+    if not os.path.exists("/root/v2ray/v2ray.zip"):
+        downloadV2ray()
+    if not os.path.exists("/root/v2ray/v2ray"):
+        os.system("unzip /root/v2ray/v2ray.zip -d /root/v2ray/")
+
+
+def downloadV2ray():
+    if role == 'end':
+        os.system("wget -O /root/v2ray/v2ray.zip https://github.com/v2ray/v2ray-core/releases/download/v4.27.5/v2ray-linux-64.zip")
+    else:
+        os.system("sshpass -p " + root_passwd + " scp root@" + root_ip + ":/root/v2ray/v2ray.zip /root/v2ray/v2ray.zip")
 
 
 def log(pre, msg):
