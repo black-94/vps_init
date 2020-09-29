@@ -9,13 +9,13 @@ puts "command : $cmd"
 spawn $cmd $param
 expect {
   "*assword*" {
-    puts "send password"
     send "$password\r"
+    puts "send password"
     exp_continue
   }
   "*yes/no*" {
-    puts "send yes"
     send "yes\r"
+    puts "send yes"
     exp_continue
   }
   "*100%*" {
