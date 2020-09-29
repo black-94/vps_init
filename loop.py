@@ -124,7 +124,7 @@ def downloadV2ray():
     if role == 'end':
         os.system("wget -O /root/v2ray/v2ray.zip https://github.com/v2ray/v2ray-core/releases/download/v4.27.5/v2ray-linux-64.zip")
     else:
-        os.system("./scp.sh >> /tmp/loop.log")
+        os.system("expect ./scp.ex >> /tmp/loop.log")
 
 
 def log(pre, msg):
