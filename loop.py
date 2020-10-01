@@ -136,8 +136,8 @@ def log(pre, msg):
     exist = os.path.exists("/tmp/loop.log")
     mode = "a" if exist else "w"
     file = open("/tmp/loop.log", mode, encoding="utf-8")
-    file.write(pre + " : " + msg)
     t = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+    file.write(t + " , " + pre + " : " + msg + "\n")
     print(t + " , " + pre + " : " + msg + "\n")
     file.close()
 
