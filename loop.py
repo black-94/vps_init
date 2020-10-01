@@ -113,10 +113,13 @@ def procExist(command):
 
 def v2rayCheck():
     if not os.path.exists("/root/v2ray"):
+        log("v2rayCheck", "mkdir")
         os.mkdir("/root/v2ray")
     if not os.path.exists("/root/v2ray/v2ray.zip"):
+        log("v2rayCheck", "download")
         downloadV2ray()
     if not os.path.exists("/root/v2ray/v2ray"):
+        log("v2rayCheck", "unzip")
         os.system("unzip /root/v2ray/v2ray.zip -d /root/v2ray/")
 
 
