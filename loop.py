@@ -76,6 +76,7 @@ def update(data):
 
 
 def write(config):
+    v2rayCheck()
     file = open("/root/v2ray/config.cfg", 'w', encoding="utf-8")
     file.write(config)
     file.close()
