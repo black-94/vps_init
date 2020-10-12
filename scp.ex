@@ -2,11 +2,12 @@
 
 set timeout 60
 set cmd [lindex $argv 0]
-set param [lindex $argv 1]
-set password [lindex $argv 2]
+set source [lindex $argv 1]
+set dest [lindex $argv 2]
+set password [lindex $argv 3]
 
-puts "command : $cmd $param"
-spawn $cmd $param
+puts "command : $cmd $source $dest"
+spawn $cmd $source $dest
 expect {
   "*assword*" {
     send "$password\r"
