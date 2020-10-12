@@ -1,4 +1,5 @@
 import binascii
+import hashlib
 import json
 import os
 import subprocess
@@ -19,6 +20,8 @@ iv = os.getenv("V2RAY_IV")
 password = os.getenv("SS_PASSWD")
 
 configCache = ""
+ack = ""
+md5 = ""
 
 # Padding
 BS = len("" if key is None else key)
@@ -27,14 +30,16 @@ unpad = lambda s: s[0:-ord(s[-1:])]
 
 
 def poll():
-    log("poll,role", role)
-    resp = requests.post(url, encrypt(role))
+    global md5, ack
+    log("poll,", "role:" + role + ",md5:" + md5 + ",ack:" + ack)
+    resp = requests.post(url, encrypt("|".join([role, md5, ack])))
     http_code = resp.status_code
     content = resp.text
     log("poll,http code", str(http_code))
     log("poll,http content", content)
     if http_code != 200 or content is None or content.isspace():
         return None
+    ack = ""
     content = decrypt(content)
     data = fromJson(content)
     log("poll,content", content)
@@ -72,6 +77,8 @@ def update(data):
     updated = write(config)
     if updated:
         configCache = config
+        md5 = hashlib.md5(configCache.encode())
+        ack = "true"
     return updated
 
 
@@ -126,9 +133,11 @@ def v2rayCheck():
 
 def downloadV2ray():
     if role == 'end':
-        os.system("wget -O /root/v2ray/v2ray.zip https://github.com/v2ray/v2ray-core/releases/download/v4.27.5/v2ray-linux-64.zip")
+        os.system(
+            "wget -O /root/v2ray/v2ray.zip https://github.com/v2ray/v2ray-core/releases/download/v4.27.5/v2ray-linux-64.zip")
     else:
-        os.system("expect ./scp.ex " + "scp" + " root@" + root_ip + ":/root/v2ray/v2ray.zip" + " /root/v2ray/ " + " '" + root_passwd + "' >> /tmp/loop.log")
+        os.system(
+            "expect ./scp.ex " + "scp" + " root@" + root_ip + ":/root/v2ray/v2ray.zip" + " /root/v2ray/ " + " '" + root_passwd + "' >> /tmp/loop.log")
 
 
 def log(pre, msg):
