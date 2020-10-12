@@ -5,7 +5,7 @@ set cmd [lindex $argv 0]
 set param [lindex $argv 1]
 set password [lindex $argv 2]
 
-puts "command : $cmd"
+puts "command : $cmd $param"
 spawn $cmd $param
 expect {
   "*assword*" {
