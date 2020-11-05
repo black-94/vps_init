@@ -166,6 +166,7 @@ def main():
         config = poll()
         if config is None:
             log("main", "after poll")
+            restartV2ray()
             return
         updated = update(config)
         if not updated:
