@@ -77,7 +77,7 @@ def update(data):
     updated = write(config)
     if updated:
         configCache = config
-        md5 = hashlib.md5(configCache.encode())
+        md5 = hashlib.md5(configCache.encode()).hexdigest()
         ack = "true"
     return updated
 
