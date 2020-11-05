@@ -70,7 +70,7 @@ def fromJson(text):
 
 
 def update(data):
-    global configCache
+    global configCache, md5, ack
     config = toJson(data)
     if not configCache.isspace() and config == configCache:
         return False
